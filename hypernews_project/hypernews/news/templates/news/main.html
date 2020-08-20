@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <title>Hyper news</title>
+</head>
+<body>
+<h2>Hyper news</h2>
+<form action="/news/" method="get">
+    {% csrf_token %}
+    <label for="q_id">
+    <input type="text" name="q" id="q_id">
+    </label>
+    <input type="submit" value="Search">
+</form>
+
+{% for day_release, articles in grouped_by_day.items %}
+<h4>{{ day_release }}</h4>
+
+<ul>
+    {% for article in articles %}
+    <li><a target="_blank" href="/news/{{ article.link }}/">{{ article.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endfor %}
+<a target="_blank" href="/news/create/">Create new</a>
+
+</body>
+</html>
