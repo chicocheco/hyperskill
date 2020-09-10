@@ -1,18 +1,37 @@
-from collections import namedtuple
+from dataclasses import dataclass
 
-Coffee = namedtuple('Coffee', 'water milk beans price')
+# instead of doing this Coffee = namedtuple('Coffee', 'water milk beans price'),
+# we can use dataclasses:
+
+
+@dataclass
+class Coffee:
+    water: int = 0
+    milk: int = 0
+    beans: int = 0
+    price: int = 0
+
+
 espresso = Coffee(250, 0, 16, 4)
 latte = Coffee(350, 75, 20, 7)
 cappuccino = Coffee(200, 100, 12, 6)
 
 
+@dataclass
 class CoffeeMachine:
-    def __init__(self, water=0, milk=0, beans=0, money=0, cups=0):
-        self.water = water
-        self.milk = milk
-        self.beans = beans
-        self.money = money
-        self.cups = cups
+    water: int = 0
+    milk: int = 0
+    beans: int = 0
+    money: int = 0
+    cups: int = 0
+
+    # this is handled by @dataclass:
+    # def __init__(self, water=0, milk=0, beans=0, money=0, cups=0):
+    #     self.water = water
+    #     self.milk = milk
+    #     self.beans = beans
+    #     self.money = money
+    #     self.cups = cups
 
     def print_resources(self):
         print(f'The coffee machine has:\n'
@@ -75,6 +94,6 @@ class CoffeeMachine:
                 self.print_resources()
 
 
-coffee_machine = CoffeeMachine(400, 540, 120, 550, 9)
-coffee_machine.power_on()
-
+if __name__ == '__main__':
+    coffee_machine = CoffeeMachine(400, 540, 120, 550, 9)
+    coffee_machine.power_on()
